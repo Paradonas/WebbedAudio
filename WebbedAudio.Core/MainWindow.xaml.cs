@@ -1,0 +1,194 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Windows.Threading;
+
+namespace WebbedAudio.Core
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public string MediaPlayerState;
+        public (string, string, string, string, string, string, TimeSpan) trackInfo;
+        public bool isChangingTrackTime = false,
+                    isChangingVolume = false;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        //Minimize Click to minimize app
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+        }
+
+        //Cross Click to exit app
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        //Execures when MediaElement or MainPlayer is loaded with a new song.
+        private void MediaElement_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Initializes a DisptachTimer which executes assigned EventHandler on Interval.
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+
+            trackInfo = GetTrackInfo();
+
+            //trackInfo is initialized
+            AuthorText.Text = trackInfo.Item1;
+            AlbumText.Text = trackInfo.Item2;
+            YearText.Text = trackInfo.Item3;
+            GenreText.Text = trackInfo.Item4;
+            NumberText.Text = trackInfo.Item5;
+            TitleText.Text = trackInfo.Item6;
+
+            //TrackTimeSlider is updated to match current track
+            TrackTimeSlider.Minimum = 0;
+            TrackTimeSlider.Maximum = trackInfo.Item7.TotalSeconds;
+            TrackTimeSlider.IsSnapToTickEnabled = true;
+
+            //Starts the song upon load for fewer clicks
+            MainPlayer.Play();
+            MediaPlayerState = "Play";
+
+            VolumeSlider.Value = MainPlayer.Volume;
+        }
+
+        
+        //Pause button click. Compares to changing string to know which is the current action to execute.
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (MediaPlayerState == "Play")
+            {
+                MainPlayer.Pause();
+                MediaPlayerState = "Pause";
+            }
+            else if (MediaPlayerState == "Pause")
+            {
+                MainPlayer.Play();
+                MediaPlayerState = "Play";
+            }
+        }
+
+        //DispatcherTimer ticks and executes every second. 
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+
+            //Displays Elapsed Time and Total Time (ElapsedTrackTime / TotalTrackTime). Strings are formatted for minutes and seconds from TimeSpan objects of:
+            //MainPlayer.Position which is the mediaplayers current position and the current tracks length from trackInfo Tuple.
+            TrackTimeDisplay.Text = $"{String.Format("{0:mm}:{0:ss}", MainPlayer.Position)} / {String.Format("{0:mm}:{0:ss}", trackInfo.Item7)}";
+
+            //Allows for user to change the Track Position. This is done through a bool disabling the TrackTimeThumb part of the TrackTimeSlider from following its value temporarily then
+            //reengaging the indicator once the key or mouse has been released. 
+            if (!isChangingTrackTime)
+                TrackTimeSlider.Value = MainPlayer.Position.TotalSeconds;
+        }
+
+        public (string, string, string, string, string, string, TimeSpan) GetTrackInfo()
+        {
+            //TagLib is a NuGet Package that makes file properties easier to access. Here its diffrent audio files.
+
+            TagLib.File tagFile = TagLib.File.Create("../../../Tracks/Uncategorized Downloads/Red Hot Chili Peppers - Scar Tissue [Official Music Video].mp3");
+            List<string> tempList = new List<string>();
+
+            //0 FirstPerformer, 1 Album, 2 Year, 3 FirstGenre, 4 Track, 5 Title, 6 TotalTrackTime
+            return (
+            (tagFile.Tag.FirstPerformer),
+            (tagFile.Tag.Album),
+            (tagFile.Tag.Year.ToString()),
+            (tagFile.Tag.FirstGenre),
+            (tagFile.Tag.Track.ToString()),
+            (tagFile.Tag.Title),
+            (new TimeSpan(0, tagFile.Properties.Duration.Minutes, tagFile.Properties.Duration.Seconds))
+            );
+
+        }
+
+        //Resets Track Position to 0 / Restarts the track.
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            MainPlayer.Position = new TimeSpan(0);
+        }
+
+        //Allows for user to change the Track Position. This is done through a bool disabling the TrackTimeThumb part of the TrackTimeSlider from following its value temporarily then
+        //reengaging the indicator once the key or mouse has been released.
+
+        //MouseClick
+
+        private void TrackTimeSlider_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            isChangingTrackTime = true;
+        }
+
+        private void TrackTimeSlider_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MainPlayer.Position = new TimeSpan(0, 0, (int)TrackTimeSlider.Value);
+            isChangingTrackTime = false;
+        }
+
+        //MouseDrag
+
+        private void TrackTimeSlider_DragStarted(object sender, DragStartedEventArgs e)
+        {
+            isChangingTrackTime = true;
+        }
+
+        private void TrackTimeSlider_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            MainPlayer.Position = new TimeSpan(0, 0, (int)TrackTimeSlider.Value);
+            isChangingTrackTime = false;
+        }
+
+        //KeyPress, Does not really work yet
+
+        private void TrackTimeSlider_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Right || e.Key == Key.Left || e.Key == Key.A || e.Key == Key.D)
+                isChangingTrackTime = true;
+        }
+
+        private void TrackTimeSlider_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Right || e.Key == Key.Left || e.Key == Key.A || e.Key == Key.D)
+            {
+                MainPlayer.Position = new TimeSpan(0, 0, (int)TrackTimeSlider.Value);
+                isChangingTrackTime = false;
+            }
+        }
+
+        private void VolumeSlider_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            MainPlayer.Volume = VolumeSlider.Value;
+            AuthorText.Text = VolumeSlider.Value.ToString();
+            GenreText.Text = MainPlayer.Volume.ToString();
+        }
+
+        private void Slider_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MainPlayer.Volume = VolumeSlider.Value;
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\hugok\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\hugok\\.nuget\\packages"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "5pTNZWg5urbE1v7IqUozfAvbjT3R2qOi6K2/IjhV9/Xw9iF+AVChMIhhsmLTet2WqlR7Yti9+TrN2jJKUzcioA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\hugok\\source\\repos\\WebbedAudio\\WebbedAudio.Core\\WebbedAudio.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hugok\\.nuget\\packages\\materialdesigncolors\\2.0.4\\materialdesigncolors.2.0.4.nupkg.sha512",
+    "C:\\Users\\hugok\\.nuget\\packages\\materialdesignthemes\\4.3.0\\materialdesignthemes.4.3.0.nupkg.sha512",
+    "C:\\Users\\hugok\\.nuget\\packages\\taglib-sharp-netstandard2.0\\2.1.0\\taglib-sharp-netstandard2.0.2.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}

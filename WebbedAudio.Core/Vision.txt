@@ -1,0 +1,36 @@
+Name: WebbedAudio
+App that enables the user to see mp3 files from any website and then download them as well as categorize them according to e.g. albums or playlists. 
+First get a list of mp3 files from the requested URL, then pick and choose which ones to download. 
+The mp3 files should be downloaded directly onto the app and played there with good media controls.
+Should be customizable and contain folders for diffrent albums or playlists.
+(containing all avaliable information) (properties: Title, type (other than mp3?), Subtitle, Comments, Contributing Artists, Album Artists, album, year, # number, Genre, Length)
+
+Step by step:
+Open App and you land on the 
+Home page
+
+Navigate to Download page
+Enter URL and get a list of mp3 files with some short information (Title, Artist, album, # number | file type, length file subcategory (https://hpaudiobooks/harrypotter/prisoner_of_azkaban/Jim_Dale or goldenaudiobooks/harrypotter/prisoner_of_azkaban/Stephen_Fry))
+Choose which files to download
+if no files are avaliable to download display "No Unprotected files avaliable"
+
+Navigate to Tracks page
+Map Uncategorized Downloads should contain recently downloaded mp3 files with description to the left (Uncategorized Downloads | Recently Downloaded)
+Create new Map 
+Cut or Copy mp3s to other folders or move option (right click)
+
+Right click maps (folders, albums) or tracks (mp3s) to play them on the
+
+Home page
+Should display media controls ((small mp3 file icon, chapter) pause play lenght and time navigation volume, shuffple, repeat)
+Mini view?? 
+
+While the app is active, att all times, at all pages a currently playing should be displayedf to the right Contents bar
+
+App Structure (grid):
+Navigation: Home, Download, Tracks, About?? (Upper bar, discription on each page what they are)
+Content: Descibed Above
+
+colors: 
+Yellow: #ffc531
+Blue/Black: RGB(1, 11, 19), (1, 11, 19), (11, 11, 11)
