@@ -190,5 +190,17 @@ namespace WebbedAudio.Core
         {
             MainPlayer.Volume = VolumeSlider.Value;
         }
+
+        private void HomeNav_Click(object sender, RoutedEventArgs e)
+        {
+            HomePane.Visibility = Visibility.Visible;
+            TracksPane.Visibility = Visibility.Collapsed;
+        }
+
+        private void TracksNav_Click(object sender, RoutedEventArgs e)
+        {
+            TracksPane.Visibility = Visibility.Visible;
+            HomePane.Visibility = Visibility.Collapsed;
+        }
     }
 }

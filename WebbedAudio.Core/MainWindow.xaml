@@ -11,6 +11,7 @@
     <!-- Background="#010b13" -->
     <!-- 1600x900, 1280x720, 1024x576 -->
 
+    <!-- Main Pane & Container w. Pane Structure -->
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -33,7 +34,6 @@
         </Grid.RowDefinitions>
 
         <!-- Navbar, row 1 -->
-
         <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -56,20 +56,28 @@
             </Image>
 
             <!-- Column 2, Home Nav -->
-            <TextBlock Text="Home" Grid.Column="1" Grid.Row="0" FontWeight="Normal"  FontSize="26" Margin="5" HorizontalAlignment="Center">
-            </TextBlock>
+            <Button x:Name="HomeNav" Grid.Column="1" Grid.Row="0" Background="Transparent" BorderBrush="Transparent" Height="40" Margin="0 -5 0 0" Click="HomeNav_Click">
+                <TextBlock Text="Home" FontWeight="Normal" FontSize="26" Foreground="#ffc531" HorizontalAlignment="Center" VerticalAlignment="Center">
+                </TextBlock>
+            </Button>
 
             <!-- Column 3, Tracks Nav -->
-            <TextBlock Text="Tracks" Grid.Column="2" Grid.Row="0" FontWeight="Light" FontSize="26" Margin="5" HorizontalAlignment="Center">
-            </TextBlock>
+            <Button x:Name="TracksNav" Grid.Column="2" Grid.Row="0" Background="Transparent" BorderBrush="Transparent" Height="40" Margin="0 -5 0 0" Click="TracksNav_Click">
+                <TextBlock Text="Tracks" FontWeight="Light" FontSize="26" Foreground="#ffc531" HorizontalAlignment="Center" VerticalAlignment="Center">
+                </TextBlock>
+            </Button>
 
             <!-- Column 4, Download Nav -->
-            <TextBlock Text="Copy" Grid.Column="3" Grid.Row="0" FontWeight="Light" FontSize="26" Margin="5" HorizontalAlignment="Center">
-            </TextBlock>
+            <Button x:Name="GetNav" Grid.Column="3" Grid.Row="0" Background="Transparent" BorderBrush="Transparent" Height="40" Margin="0 -5 0 0">
+                <TextBlock Text="Get" FontWeight="Light" FontSize="26" Foreground="#ffc531" HorizontalAlignment="Center" VerticalAlignment="Center">
+                </TextBlock>
+            </Button>
 
             <!-- Column 9, About Nav -->
-            <TextBlock Text="About" Grid.Column="8" Grid.Row="0" FontWeight="Light" FontSize="26" Margin="5" HorizontalAlignment="Center">
-            </TextBlock>
+            <Button x:Name="AboutNav" Grid.Column="8" Grid.Row="0" Background="Transparent" BorderBrush="Transparent" Height="40" Margin="0 -5 0 0">
+                <TextBlock Text="About" FontWeight="Light" FontSize="26" Foreground="#ffc531" HorizontalAlignment="Center" VerticalAlignment="Center">
+                </TextBlock>
+            </Button>
 
             <!-- Column 10, Window Options-->
             <StackPanel Orientation="Horizontal" Grid.Column="9" HorizontalAlignment="Right">
@@ -91,149 +99,222 @@
 
         <!-- Content, Row 2 -->
         <!-- Column 1, Content -->
-
-        <Grid Grid.Row="2" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="20"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="20"/>
-
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Column="1" Grid.Row="1" Margin="10">
+        
+        <!-- Home Pane, only container for toggle -->
+        <Grid x:Name="HomePane" Visibility="Collapsed" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <!-- Structure of Home Pane -->
+            <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
                     <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+
                 </Grid.RowDefinitions>
 
-                <Ellipse Grid.Column="0"  Height="120" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="1.5">
-                    <Ellipse.Stroke>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.2,0">
-                            <GradientStop Color="#FF010B13" Offset="0.81"/>
-                            <GradientStop Color="#ffc531"/>
-                        </LinearGradientBrush>
-                    </Ellipse.Stroke>
-                </Ellipse>
-                <Ellipse Grid.Column="0" Margin="10" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="1.5">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="C:\Users\hugok\source\repos\WebbedAudio\WebbedAudio.Core\Resources\Harry Potter and the Prisoner of Askaban.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    </Ellipse.Fill>
-                    <Ellipse.Stroke>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.2,0">
-                            <GradientStop Color="#FF010B13" Offset="0.81"/>
-                            <GradientStop Color="#ffc531"/>
-                        </LinearGradientBrush>
-                    </Ellipse.Stroke>
-                </Ellipse>
+                <!-- Main Player Pane -->
+                <Grid Grid.Column="1" Grid.Row="1" Margin="-5 0 15 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="2">
-                    <TextBlock x:Name="TitleText" Text="Chapter 03 – The Dursleys Departing" Foreground="#FFF" FontStyle="Normal" HorizontalAlignment="Center" Margin="0,10,0,0"></TextBlock>
-                    <TextBlock x:Name="AlbumText" Text="Harry Potter and The Prisoner of Azkaban" Foreground="#FFF" FontStyle="Normal" FontSize="12" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-                    <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Picture & Circles -->
+                    <Ellipse Grid.Column="0"  Height="120" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="1.5">
+                        <Ellipse.Stroke>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.2,0">
+                                <GradientStop Color="#FF010B13" Offset="0.81"/>
+                                <GradientStop Color="#ffc531"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Stroke>
+                    </Ellipse>
+                    <Ellipse Grid.Column="0" Margin="10" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="1.5">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="C:\Users\hugok\source\repos\WebbedAudio\WebbedAudio.Core\Resources\Harry Potter and the Prisoner of Askaban.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Ellipse.Fill>
+                        <Ellipse.Stroke>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.2,0">
+                                <GradientStop Color="#FF010B13" Offset="0.81"/>
+                                <GradientStop Color="#ffc531"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Stroke>
+                    </Ellipse>
+                    <!-- End of Pictures & Circles -->
+
+                    <!-- Text, Buttons & Player -->
+                    <StackPanel Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="2">
+                        <TextBlock x:Name="TitleText" Text="Chapter 03 – The Dursleys Departing" Foreground="#FFF" FontStyle="Normal" HorizontalAlignment="Center" Margin="0,10,0,0"></TextBlock>
+                        <TextBlock x:Name="AlbumText" Text="Harry Potter and The Prisoner of Azkaban" Foreground="#FFF" FontStyle="Normal" FontSize="12" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <MediaElement x:Name="MainPlayer" Source="C:\Users\hugok\source\repos\WebbedAudio\WebbedAudio.Core\Tracks\Uncategorized Downloads\Red Hot Chili Peppers - Scar Tissue [Official Music Video].mp3" LoadedBehavior="Manual" Loaded="MediaElement_Loaded"/>
+                            <Button Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_3">
+                                <materialDesign:PackIcon Kind="RotateRight" Height="20" Width="30" Foreground="#ffc531">
+                                </materialDesign:PackIcon>
+                            </Button>
+                            <Button Grid.Column="1"  HorizontalAlignment="Left" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}">
+                                <materialDesign:PackIcon Kind="ChevronLeft" Height="20" Width="30" Foreground="#ffc531">
+                                </materialDesign:PackIcon>
+                            </Button>
+                            <Button Grid.Column="2" HorizontalAlignment="Center" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_2">
+                                <materialDesign:PackIcon Kind="Pause" Height="20" Width="30" Foreground="#ffc531">
+                                </materialDesign:PackIcon>
+                            </Button>
+                            <Button Grid.Column="3" HorizontalAlignment="Right" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}">
+                                <materialDesign:PackIcon Kind="ChevronRight" Height="20" Width="30" Foreground="#ffc531">
+                                </materialDesign:PackIcon>
+                            </Button>
+                            <Button Grid.Column="4" HorizontalAlignment="Right" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}">
+                                <materialDesign:PackIcon Kind="ShuffleVariant" Height="20" Width="30"  FontWeight="ExtraLight" Foreground="#ffc531">
+                                </materialDesign:PackIcon>
+
+                            </Button>
+                        </Grid>
+                        <Slider x:Name="TrackTimeSlider" Orientation="Horizontal" Width="270px" Foreground="#ffc531" MouseDown="TrackTimeSlider_MouseDown" MouseUp="TrackTimeSlider_MouseUp" Thumb.DragStarted="TrackTimeSlider_DragStarted" Thumb.DragCompleted="TrackTimeSlider_DragCompleted" KeyDown="TrackTimeSlider_KeyDown" KeyUp="TrackTimeSlider_KeyUp"/>
+                        <TextBlock x:Name="TrackTimeDisplay" Foreground="#FFF" FontStyle="Normal" FontSize="10" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
+                    </StackPanel>
+                    <!-- End of Text, Buttons & Player -->
+                </Grid>
+                <!-- End of Main Player Pane -->
+
+                <!-- Volume & Further Info -->
+                <Grid Grid.Column="2" Grid.Row="1" Margin="15 0 -5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Slider x:Name="VolumeSlider" Orientation="Vertical" Height="100" Maximum="1" Foreground="#ffc531" MouseUp="Slider_MouseUp" Thumb.DragCompleted="VolumeSlider_DragCompleted"/>
+                        <materialDesign:PackIcon Kind="VolumeHigh" Height="30" Width="30" VerticalAlignment="Center" Margin="20, 0" Foreground="#ffc531">
+                        </materialDesign:PackIcon>
+                    </StackPanel>
+
+                    <TextBlock Text="Further Trackinformation" FontSize="18" Foreground="#FFF" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Center"></TextBlock>
+                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0, 30, 0, 0">
+                        <TextBlock Text="Author:" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock Text="Year: " Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock Text="Genre:" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock Text="Number:" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Grid.ColumnSpan="3" Orientation="Vertical" Margin="0, 30, 0, 0">
+                        <TextBlock x:Name="AuthorText" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock x:Name="YearText" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock x:Name="GenreText" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock x:Name="NumberText" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
+                    </StackPanel>
+                </Grid>
+                <!-- End of Volume & Further Info -->
+            </Grid>
+            <!-- End of Structure of Home Pane -->
+        </Grid>
+        <!-- End of Home Pane -->
+        
+        <!-- Tracks Pane only for Toggle -->
+        <Grid x:Name="TracksPane" Visibility="Visible"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <!-- Structure of Tracks Pane -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                
+                <!-- File Info Pane -->
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- File Info -->
+                    <Button x:Name="NameFile" Grid.Column="0" Background="Transparent" BorderBrush="Transparent" Height="auto" Margin="0 -5 0 0">
+                        <TextBlock Text="Name" FontWeight="Light" FontSize="16" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="DateFile" Grid.Column="1" Background="Transparent" BorderBrush="Transparent" Height="auto" Margin="-15 -5 0 0">
+                        <TextBlock Text="Date Modified" FontWeight="Light" FontSize="16" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="TypeFile" Grid.Column="2" Background="Transparent" BorderBrush="Transparent" Height="auto" Margin="-35 -5 0 0">
+                        <TextBlock Text="Type" FontWeight="Light" FontSize="16" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="SizeFile" Grid.Column="3" Background="Transparent" BorderBrush="Transparent" Height="auto" Margin="-55 -5 0 0">
+                        <TextBlock Text="Size" FontWeight="Light" FontSize="16" Width="200" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Button>
+                </Grid>
+                <!-- End of File Info Pane -->
+
+                <!-- List of Files SCroll Viewer w. Pane -->
+                <ScrollViewer Grid.Column="1" Grid.Row="2">
+                    <Grid Grid.Row="2" Grid.Column="1">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
+
                         </Grid.ColumnDefinitions>
-
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
-                        <MediaElement x:Name="MainPlayer" Source="C:\Users\hugok\source\repos\WebbedAudio\WebbedAudio.Core\Tracks\Uncategorized Downloads\Red Hot Chili Peppers - Scar Tissue [Official Music Video].mp3" LoadedBehavior="Manual" Loaded="MediaElement_Loaded"/>
-                        <Button Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_3">
-                            <materialDesign:PackIcon Kind="RotateRight" Height="20" Width="30" Foreground="#ffc531">
-                            </materialDesign:PackIcon>
-                        </Button>
-                        <Button Grid.Column="1"  HorizontalAlignment="Left" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}">
-                            <materialDesign:PackIcon Kind="ChevronLeft" Height="20" Width="30" Foreground="#ffc531">
-                            </materialDesign:PackIcon>
-                        </Button>
-                        <Button Grid.Column="2" HorizontalAlignment="Center" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_2">
-                            <materialDesign:PackIcon Kind="Pause" Height="20" Width="30" Foreground="#ffc531">
-                            </materialDesign:PackIcon>
-                        </Button>
-                        <Button Grid.Column="3" HorizontalAlignment="Right" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}">
-                            <materialDesign:PackIcon Kind="ChevronRight" Height="20" Width="30" Foreground="#ffc531">
-                            </materialDesign:PackIcon>
-                        </Button>
-                        <Button Grid.Column="4" HorizontalAlignment="Right" Style="{ StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}">
-                            <materialDesign:PackIcon Kind="ShuffleVariant" Height="20" Width="30"  FontWeight="ExtraLight" Foreground="#ffc531">
-                            </materialDesign:PackIcon>
-
-                        </Button>
+                        
+                        <!-- Single File Info -->
+                        <TextBlock x:Name="FileText" Text="Red Hot Chili Peppers - Scar Tissue" Foreground="#FFF" Grid.Column="1" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="DateText" Text="02/02/2022 23:46" Foreground="#FFF" Grid.Column="2" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TypeText" Text=".mp3" Foreground="#FFF" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="SizeText" Text="7,080 KB" Foreground="#FFF" Grid.Column="4" VerticalAlignment="Center"/>
                     </Grid>
-                    <Slider x:Name="TrackTimeSlider" Orientation="Horizontal" Width="270px" Foreground="#ffc531" MouseDown="TrackTimeSlider_MouseDown" MouseUp="TrackTimeSlider_MouseUp" Thumb.DragStarted="TrackTimeSlider_DragStarted" Thumb.DragCompleted="TrackTimeSlider_DragCompleted" KeyDown="TrackTimeSlider_KeyDown" KeyUp="TrackTimeSlider_KeyUp"/>
-                    <TextBlock x:Name="TrackTimeDisplay" Foreground="#FFF" FontStyle="Normal" FontSize="10" HorizontalAlignment="Center" Margin="0,0,0,10"></TextBlock>
-                </StackPanel>
+                </ScrollViewer>
+                <!-- End of List of Files Pane -->
             </Grid>
+            <!-- End of Structure of Tracks Pane -->
         </Grid>
-
-        <Grid Grid.Row="2" Grid.Column="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="20"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="20"/>
-
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Column="1" Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Slider x:Name="VolumeSlider" Orientation="Vertical" Height="100" Maximum="1" Foreground="#ffc531" MouseUp="Slider_MouseUp" Thumb.DragCompleted="VolumeSlider_DragCompleted"/>
-                    <materialDesign:PackIcon Kind="VolumeHigh" Height="30" Width="30" VerticalAlignment="Center" Margin="20, 0" Foreground="#ffc531">
-                    </materialDesign:PackIcon>
-                </StackPanel>
-
-                <TextBlock Text="Further Trackinformation" FontSize="18" Foreground="#FFF" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Center"></TextBlock>
-                <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0, 30, 0, 0">
-                    <TextBlock Text="Author:" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock Text="Year: " Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock Text="Genre:" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock Text="Number:" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
-                </StackPanel>
-
-                <StackPanel Grid.Column="2" Grid.ColumnSpan="3" Orientation="Vertical" Margin="0, 30, 0, 0">
-                    <TextBlock x:Name="AuthorText" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock x:Name="YearText" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock x:Name="GenreText" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock x:Name="NumberText" Foreground="#FFF" HorizontalAlignment="Left"></TextBlock>
-                </StackPanel>
-            </Grid>
-        </Grid>
-
+        <!-- End of Tracks Pane only for Toggle -->
     </Grid>
+    <!-- End of Main Pane & Container w. Pane Structure-->
 </Window>
