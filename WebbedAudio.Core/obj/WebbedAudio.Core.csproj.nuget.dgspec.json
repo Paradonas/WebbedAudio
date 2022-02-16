@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hugok\\source\\repos\\WebbedAudio\\WebbedAudio.Core\\WebbedAudio.Core.csproj": {}
+    "C:\\Users\\hugok\\Desktop\\WebbedAudio\\WebbedAudio.Core\\WebbedAudio.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hugok\\source\\repos\\WebbedAudio\\WebbedAudio.Core\\WebbedAudio.Core.csproj": {
+    "C:\\Users\\hugok\\Desktop\\WebbedAudio\\WebbedAudio.Core\\WebbedAudio.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hugok\\source\\repos\\WebbedAudio\\WebbedAudio.Core\\WebbedAudio.Core.csproj",
+        "projectUniqueName": "C:\\Users\\hugok\\Desktop\\WebbedAudio\\WebbedAudio.Core\\WebbedAudio.Core.csproj",
         "projectName": "WebbedAudio.Core",
-        "projectPath": "C:\\Users\\hugok\\source\\repos\\WebbedAudio\\WebbedAudio.Core\\WebbedAudio.Core.csproj",
+        "projectPath": "C:\\Users\\hugok\\Desktop\\WebbedAudio\\WebbedAudio.Core\\WebbedAudio.Core.csproj",
         "packagesPath": "C:\\Users\\hugok\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hugok\\source\\repos\\WebbedAudio\\WebbedAudio.Core\\obj\\",
+        "outputPath": "C:\\Users\\hugok\\Desktop\\WebbedAudio\\WebbedAudio.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hugok\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -43,6 +43,10 @@
             "MaterialDesignThemes": {
               "target": "Package",
               "version": "[4.3.0, )"
+            },
+            "ScrapySharp": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "taglib-sharp-netstandard2.0": {
               "target": "Package",

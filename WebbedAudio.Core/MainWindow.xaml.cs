@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using WebbedAudio.Core.Models;
 
 namespace WebbedAudio.Core
 {
@@ -31,6 +21,15 @@ namespace WebbedAudio.Core
         public MainWindow()
         {
             InitializeComponent();
+
+            File firstFile = new File();
+
+            firstFile.FileName = "Scar Tissue";
+            firstFile.FileDate = new DateTime(2003, 5, 8);
+            firstFile.FileType = ".mp3";
+            firstFile.FileSize = "7 kB";
+
+            FilesDataGrid.Items.Add(firstFile);
         }
 
         //Minimize Click to minimize app
