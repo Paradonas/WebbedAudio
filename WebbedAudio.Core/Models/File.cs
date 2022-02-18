@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebbedAudio.Core.Models
 {
-    public class File
+    public class AudioFile
     {
         public string FileName { get; set; }
         public string FileType { get; set; }
-        public DateTime FileDate { get; set; }
+        public DateOnly FileDate { get; set; }
         public string FileSize { get; set; }
     }
 }

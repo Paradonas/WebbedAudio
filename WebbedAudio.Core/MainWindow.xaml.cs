@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.CompilerServices;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -17,19 +20,32 @@ namespace WebbedAudio.Core
         public (string, string, string, string, string, string, TimeSpan) trackInfo;
         public bool isChangingTrackTime = false,
                     isChangingVolume = false;
+        public string Directory;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            File firstFile = new File();
+            Directory = @$"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/../../../";
+            AudioFile firstFile = new AudioFile();
 
             firstFile.FileName = "Scar Tissue";
-            firstFile.FileDate = new DateTime(2003, 5, 8);
+            firstFile.FileDate = new DateOnly(2003, 5, 8);
             firstFile.FileType = ".mp3";
             firstFile.FileSize = "7 kB";
 
             FilesDataGrid.Items.Add(firstFile);
+
+            for (int i = 0; i < 25; i++)
+            {
+                FilesDataGrid.Items.Add(new AudioFile()
+                {
+                    FileName = $"File {i}",
+                    FileDate = DateOnly.FromDateTime(DateTime.Now.AddDays(i)),
+                    FileSize = $"{i} kB",
+                    FileType = ".mp3"
+                });
+            }
         }
 
         //Minimize Click to minimize app
@@ -190,6 +206,8 @@ namespace WebbedAudio.Core
             MainPlayer.Volume = VolumeSlider.Value;
         }
 
+        //Navigation Clicks
+
         private void HomeNav_Click(object sender, RoutedEventArgs e)
         {
             HomePane.Visibility = Visibility.Visible;
@@ -200,6 +218,27 @@ namespace WebbedAudio.Core
         {
             TracksPane.Visibility = Visibility.Visible;
             HomePane.Visibility = Visibility.Collapsed;
+        }
+
+        //Tracks- / Files Pane
+
+        private void OpenFileExplorerButton_Click(object sender, RoutedEventArgs e)
+        {
+            string fileName;
+
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+
+            openFileDialog.Filter = "MP3 Files (*.mp3)| *.mp3 | WAW Files (*.waw)| *.wav| WAV Files (*.wav)| *.wav| WMA Files (*.wma)| *.wma| AAC Files (*.aac)| *.aac| OGG Files (*.ogg)| *.ogg";
+            openFileDialog.Multiselect = true;
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.InitialDirectory = $"{Directory}";
+
+            Nullable<bool> result = openFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                fileName = openFileDialog.FileName;  
+            }
         }
     }
 }
