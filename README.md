@@ -26,7 +26,7 @@ With this project I want to make it easier to listen to free audiobooks from web
 
 This project was created not only beacause of creating the app itself and the use I will have for it, but also for educational purposes. This means you should expect many quirks, flaws and bugs a pleanty. This also means development is a slow and daunting process and that the app may not be completed. Please provide improvements if possible, you can do so in GitHubs message feature for this repository.
 
-You can find the parts or planned parts / future features in my [other AIP project](https://github.com/Paradonas/Webbed-Audio-AIP/).
+You can find the parts or planned parts / future features in my [other AIP project](https://github.com/Paradonas/Webbed-Audio-AIP/). This is also where you should submit issues, bugs and crashes on the **issues** tab. Mention features you'd like to be added or pages you'd like the app to support in the **discussion**.
 
 ### Creation
 
