@@ -8,6 +8,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
 using WebbedAudio.Core.Models;
+using System.Windows.Media;
 
 namespace WebbedAudio.Core
 {
@@ -21,6 +22,7 @@ namespace WebbedAudio.Core
         public bool isChangingTrackTime = false,
                     isChangingVolume = false;
         public string Directory;
+        public string urlTextColor = "#BBBBBBBB";
 
         public MainWindow()
         {
@@ -212,13 +214,44 @@ namespace WebbedAudio.Core
         {
             HomePane.Visibility = Visibility.Visible;
             TracksPane.Visibility = Visibility.Collapsed;
+            GetPane.Visibility = Visibility.Collapsed;
         }
 
         private void TracksNav_Click(object sender, RoutedEventArgs e)
         {
             TracksPane.Visibility = Visibility.Visible;
             HomePane.Visibility = Visibility.Collapsed;
+            GetPane.Visibility= Visibility.Collapsed;
         }
+
+        private void GetNav_Click(object sender, RoutedEventArgs e)
+        {
+            GetPane.Visibility = Visibility.Visible;
+            TracksPane.Visibility= Visibility.Collapsed;
+            HomeNav.Visibility = Visibility.Collapsed;
+        }
+
+        // Placeholder url link
+        private void urlText_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (urlText.Text == "")
+            {
+                urlTextColor = "#BBBBBBBB";
+                urlText.Text = "Enter url here 'https://fulllengthaudiobooks.com/patrick-ness-the-ask-and-the-answer-audiobook/'";
+            }
+            else
+            {
+                urlTextColor = "#EEEEEEEE";
+            }
+        }
+
+        private void urlText_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (urlText.Text == "Enter url here 'https://fulllengthaudiobooks.com/patrick-ness-the-ask-and-the-answer-audiobook/'")
+                urlText.Text = "";
+        }
+
+
 
         //Tracks- / Files Pane
 

@@ -68,7 +68,7 @@
             </Button>
 
             <!-- Column 4, Download Nav -->
-            <Button x:Name="GetNav" Grid.Column="3" Grid.Row="0" Background="Transparent" BorderBrush="Transparent" Height="40" Margin="0 -5 0 0">
+            <Button x:Name="GetNav" Grid.Column="3" Grid.Row="0" Background="Transparent" BorderBrush="Transparent" Height="40" Margin="0 -5 0 0" Click="GetNav_Click">
                 <TextBlock Text="Get" FontWeight="Light" FontSize="26" Foreground="#ffc531" HorizontalAlignment="Center" VerticalAlignment="Center">
                 </TextBlock>
             </Button>
@@ -242,7 +242,7 @@
         <!-- End of Home Pane -->
 
         <!-- Tracks Pane only for Toggle -->
-        <Grid x:Name="TracksPane" Visibility="Visible"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+        <Grid x:Name="TracksPane" Visibility="Hidden"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
             <!-- Structure of Tracks Pane -->
             <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -346,6 +346,34 @@
             <!-- End of Structure of Tracks Pane -->
         </Grid>
         <!-- End of Tracks Pane only for Toggle -->
+
+        <!-- Get Pane only for Toggle -->
+        <Grid x:Name="GetPane" Visibility="Visible"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <!-- Structure of Get Pane -->
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <!--End of structure Get Pane-->
+
+                <TextBox x:Name="urlText" Grid.Column="1" Grid.Row="1" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="#ffc531" GotFocus="urlText_GotFocus" LostFocus="urlText_LostFocus">
+                    Enter url here "https://fulllengthaudiobooks.com/patrick-ness-the-ask-and-the-answer-audiobook/"
+                </TextBox>
+            </Grid>
+
+            
+            
+        </Grid>
+        <!-- End of Get Pane only for Toggle -->
     </Grid>
     <!-- End of Main Pane & Container w. Pane Structure-->
 </Window>

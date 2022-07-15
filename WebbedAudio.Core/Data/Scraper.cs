@@ -1,37 +1,53 @@
-﻿using HtmlAgilityPack;
-using ScrapySharp.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using ScrapySharp.Extensions;
+using HtmlAgilityPack;
+using System.Net;
+using System.IO;
 
-namespace WebbedAudio.Core.Data
+namespace WebbedAudio_AIP__Application_In_Parts_
 {
-    class Scraper
+    public class Scraper
     {
         static string GetSiteHtml(string url)
         {
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage response = client.GetAsync(url).Result)
+                using (HttpResponseMessage response = client.GetAsync(url).Result) //gets response from requested url
                 {
                     using (HttpContent content = response.Content)
                     {
-                        return content.ReadAsStringAsync().Result;
+                        return content.ReadAsStringAsync().Result; //gets content (html)
                     }
                 }
             }
         }
 
-        public static List<string> GetMediaElements(string url)
+        public static List<Tuple<string, int>> GetSubsites(string url)
         {
-            List<string> mediaElements = new List<string>();
+            var doc = new HtmlDocument();
+            doc.LoadHtml(GetSiteHtml(url));
 
-            bool anotherSubSite = true;
+            List<Tuple<string, int>> subsites = new List<Tuple<string, int>>();
+            int numbSubsites = 0;
+
+            var mediaElementNodes = doc.DocumentNode.CssSelect("div.page-links > a");
+
+            foreach (var mediaNode in mediaElementNodes)
+            {
+                string link = mediaNode.Attributes["href"].Value;
+                subsites.Add(new Tuple<string, int>(link, numbSubsites));
+                numbSubsites++;
+            }
+
+            return subsites;
+        }
+
+        public static List<MediaItem> GetMediaElements(string url)
+        {
+            List<MediaItem> mediaElements = new List<MediaItem>();
+
             var doc = new HtmlDocument();
             doc.LoadHtml(GetSiteHtml(url));
 
@@ -39,27 +55,25 @@ namespace WebbedAudio.Core.Data
 
             foreach (var node in mediaElemenNodes)
             {
-                mediaElements.Add(node.InnerHtml.CleanInnerText());
+                string link = node.InnerHtml.CleanInnerText(); //gets text inside tag (<a> this text </a>)
+                mediaElements.Add(new MediaItem(link));
             }
-
+            
             return mediaElements;
         }
 
-        public static void DownloadMedia(List<string> files, string downloadFolder)
+        public static void DownloadMedia(List<MediaItem> mediaItems, string downloadFolder)
         {
             WebClient client = new WebClient();
-            int i = 0;
-            string downloadFile = "";
 
-            foreach (var file in files)
+            foreach (var media in mediaItems)
             {
-                downloadFile = $@"C:\Users\hugok\source\repos\WebbedAudio AIP (Application In Parts)\Downloads\track{i}.mp3";
-                using (StreamWriter sw = new StreamWriter(downloadFile))
+                string downloadFile = $@"{downloadFolder}{media.Title}.mp3";
+                using (StreamWriter sw = new StreamWriter(downloadFile)) //we need to create file before initializing content
                 {
                 }
-                client.DownloadFile(new Uri(file), downloadFile);
-                i++;
+                client.DownloadFile(new Uri(media.FullUrl), downloadFile); //initializes content
             }
         }
-    }
+    }  
 }
